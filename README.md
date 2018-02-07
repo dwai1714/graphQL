@@ -60,6 +60,7 @@ mutation {
 }
 ```
 The following are the new features that shows power of GraphQl when applied to legacy Rest API
+```
 {
   getMovies(title: "Home Alone") {
     title
@@ -86,6 +87,7 @@ The following are the new features that shows power of GraphQl when applied to l
     }
   }
 }
+```
 
 This makes a call to http://www.omdbapi.com/ to get the  details of the movie and then goes to themoviedb.org to 
 get the directors information and then aggregates them and create a chunky API.

@@ -1,0 +1,16 @@
+type Director {
+    name: String!
+    placeOfBirth: String
+    biography: String
+    birthday: String
+    popularity: Float
+}
+
+extend type Query {
+    getDirector(name: String):[Director]
+    
+    
+}
+
+
+

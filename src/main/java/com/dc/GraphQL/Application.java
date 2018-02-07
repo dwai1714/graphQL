@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Bean;
 import com.dc.GraphQL.exception.GraphQLErrorAdapter;
 import com.dc.GraphQL.model.Author;
 import com.dc.GraphQL.model.Book;
+import com.dc.GraphQL.model.UserRating;
 import com.dc.GraphQL.repository.AuthorRepository;
 import com.dc.GraphQL.repository.BookRepository;
+import com.dc.GraphQL.repository.UserRatingRepository;
 import com.dc.GraphQL.resolver.BookResolver;
 import com.dc.GraphQL.resolver.Mutation;
 import com.dc.GraphQL.resolver.Query;
@@ -35,14 +37,11 @@ public class Application {
 		return new GraphQLErrorHandler() {
 			@Override
 			public List<GraphQLError> processErrors(List<GraphQLError> errors) {
-				List<GraphQLError> clientErrors = errors.stream()
-						.filter(this::isClientError)
+				List<GraphQLError> clientErrors = errors.stream().filter(this::isClientError)
 						.collect(Collectors.toList());
 
-				List<GraphQLError> serverErrors = errors.stream()
-						.filter(e -> !isClientError(e))
-						.map(GraphQLErrorAdapter::new)
-						.collect(Collectors.toList());
+				List<GraphQLError> serverErrors = errors.stream().filter(e -> !isClientError(e))
+						.map(GraphQLErrorAdapter::new).collect(Collectors.toList());
 
 				List<GraphQLError> e = new ArrayList<>();
 				e.addAll(clientErrors);
@@ -72,12 +71,21 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(AuthorRepository authorRepository, BookRepository bookRepository) {
+	public CommandLineRunner demo(AuthorRepository authorRepository, BookRepository bookRepository,
+			UserRatingRepository userRatingRepository) {
 		return (args) -> {
 			Author author = new Author("Herbert", "Schildt");
+			Author author1 = new Author("Python", "Henry");
 			authorRepository.save(author);
+			authorRepository.save(author1);
+			UserRating rating = new UserRating("Home", 5);
+			userRatingRepository.save(rating);
+			UserRating rating1 = new UserRating("Home Alone", 8);
+			userRatingRepository.save(rating1);
+
 
 			bookRepository.save(new Book("Java: A Beginner's Guide, Sixth Edition", "0071809252", 728, author));
+			bookRepository.save(new Book("Python: A Beginner's Guide, Sixth Edition", "0071809252", 200, author1));
 		};
 	}
 }

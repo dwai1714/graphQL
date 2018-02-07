@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dc.GraphQL.model.Director;
 import com.dc.GraphQL.model.Movie;
+import com.dc.GraphQL.model.UserRating;
+import com.dc.GraphQL.repository.AuthorRepository;
+import com.dc.GraphQL.repository.UserRatingRepository;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +33,9 @@ public class MovieService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	private UserRatingRepository userRatingRepository;
+
 
 	public Movie getMovie(String title) throws JsonParseException, JsonMappingException, IOException {
 		final String uri = "http://www.omdbapi.com/?apikey=" + omDbApi+ "&t=" + title;
@@ -42,6 +48,8 @@ public class MovieService {
 		Integer directorId = getDirectorIdMatchingTitle(responseData.getDirectorName(), responseData.getTitle());
 		Director director = getDirector(directorId);
 		responseData.setDirector(director);
+		UserRating userRating = userRatingRepository.findByMovieName(title);
+		responseData.setUserRating(userRating);
 
 		String jsonInString = objectMapper.writeValueAsString(responseData);
 		logger.info("response Data  " + jsonInString);

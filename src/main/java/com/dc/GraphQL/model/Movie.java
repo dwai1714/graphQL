@@ -57,6 +57,15 @@ public class Movie {
 	@JsonProperty("Response")
 	private String response;
 	private Director director;
+	private UserRating userRating;
+
+	public UserRating getUserRating() {
+		return userRating;
+	}
+
+	public void setUserRating(UserRating userRating) {
+		this.userRating = userRating;
+	}
 
 	public String getdVD() {
 		return dVD;

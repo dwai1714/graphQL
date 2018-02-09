@@ -8,8 +8,7 @@ B. GraphQL server that is a thin layer in front of a number of third party or le
 C. A hybrid approach of a connected database and third party or legacy systems that can all be accessed through the same GraphQL API
 
 All three architectures represent major use cases of GraphQL and demonstrate the flexibility in terms of the context where it can be used.
-
-This application demonstrates the use cases A and B
+Please visit https://www.howtographql.com/basics/3-big-picture/ to know more
 Use case A is borrowed from this post https://www.pluralsight.com/guides/java-and-j2ee/building-a-graphql-server-with-spring-boot
 Use case B and C are developed from ground up in this application
 

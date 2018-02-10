@@ -131,11 +131,13 @@ The application collects movie and director information from legacy API. But the
 
 Docker:
 To run as a Docker container
-Change the data.yml file to put your api keys
-Run
+Rename the data2.yml to data.yml and put your api keys
+On the command line run the following commands
+```
 mvn clean install -DskipTests=true
 docker-compose build
 docker-compose up -d && bash consul/keys.sh
+```
 open http://localhost:5500/graphiql
 run any of the above queries
 

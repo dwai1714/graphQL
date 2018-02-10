@@ -1,5 +1,5 @@
 {"api":{
-  "omDbApi": "omdbapi",
-  "movieDbApi": "moviedbapi"
+  "omDbApi": "put your omdbapi",
+  "movieDbApi": "put your moviedbapi"
 }
 }

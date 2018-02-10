@@ -129,5 +129,15 @@ The next part describes the use case C.
 ```
 The application collects movie and director information from legacy API. But the use ratings comes from the local database. The application looks up for the movie title in the local database and injects the use rating from the local database 
 
+Docker:
+To run as a Docker container
+Change the data.yml file to put your api keys
+Run
+mvn clean install -DskipTests=true
+docker-compose build
+docker-compose up -d && bash consul/keys.sh
+open http://localhost:5500/graphiql
+run any of the above queries
+
 # License
 MIT

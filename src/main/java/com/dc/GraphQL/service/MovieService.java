@@ -40,7 +40,7 @@ public class MovieService {
 	public Movie getMovie(String title) throws JsonParseException, JsonMappingException, IOException {
 		final String uri = "http://www.omdbapi.com/?apikey=" + omDbApi+ "&t=" + title;
 
-		logger.debug("URL of Attribute Servive is " + uri);
+		logger.info("URL of movie Servive is " + uri);
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<Movie> responseEntity = restTemplate.getForEntity(uri, Movie.class);
@@ -52,7 +52,7 @@ public class MovieService {
 		responseData.setUserRating(userRating);
 
 		String jsonInString = objectMapper.writeValueAsString(responseData);
-		logger.info("response Data  " + jsonInString);
+		logger.debug("response Data  " + jsonInString);
 		return responseData;
 	}
 
@@ -61,7 +61,7 @@ public class MovieService {
 		final String uri = "https://api.themoviedb.org/3/search/person?api_key=" + movieDbApi +"&language=en-US&page=1"
 				+ "&include_adult=false&query=" + name;
 
-		logger.debug("URL of  Servive is " + uri);
+		logger.info("URL of  Servive is " + uri);
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<Map> responseEntity = restTemplate.getForEntity(uri, Map.class);
@@ -72,7 +72,7 @@ public class MovieService {
 			for (int j = 0; j < knownFor.size(); j++) {
 				Map knownForData = (Map) knownFor.get(j);
 				knownForData.get("title");
-				logger.info("response Data  " + knownForData.get("title"));
+				logger.debug("response Data  " + knownForData.get("title"));
 				if (knownForData.get("title").equals(title))
 					logger.info("ID is   " + data.get("id"));
 				return (Integer) data.get("id");
@@ -94,7 +94,7 @@ public class MovieService {
 		ResponseEntity<Director> responseEntity = restTemplate.getForEntity(uri, Director.class);
 		Director responseData = responseEntity.getBody();
 		String jsonInString = objectMapper.writeValueAsString(responseData);
-		logger.info("response Data  " + jsonInString);
+		logger.debug("response Data  " + jsonInString);
 		return responseData;
 	}
 
@@ -102,7 +102,7 @@ public class MovieService {
 		final String uri = "https://api.themoviedb.org/3/search/person?api_key=" + movieDbApi + "&language=en-US&query="
 				+ name + "&page=1&include_adult=false\n";
 
-		logger.debug("URL of  Servive is " + uri);
+		logger.info("URL of  Servive is " + uri);
 		RestTemplate restTemplate = new RestTemplate();
 		List<Director> directors = new ArrayList();
 
@@ -112,7 +112,6 @@ public class MovieService {
 			Map data = (Map) responseData.get(i);
 			directors.add(getDirector((Integer) data.get("id")));
 		}
-		logger.info("response Data  " + directors);
 		return directors;
 	}
 

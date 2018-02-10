@@ -3,5 +3,11 @@ spring:
     name: graphql
   cloud:
     consul:
+      config:
+        enabled: true
+        data-key: data
+        prefix: config
+        defaultContext: graphql
+        format: yaml
       discovery:
         health-check-path: /health

@@ -1,5 +1,42 @@
 version: '3'
 services:
+  consul:
+    container_name: Consul
+    image: "consul:latest"
+    hostname: "consul"
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53"
+    networks:
+      - graphql_default
+
+      
+#  postgres:
+#    container_name: PostgresDB
+#    image: "postgres:latest"
+#    volumes:
+#      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+#    ports:
+#      - "5432:5432"
+#
+#  rabbit:
+#    image: "rabbitmq:3-management"
+#    hostname: "rabbit"
+#    container_name: Rabbit
+#    environment:
+#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+#    ports:
+#      - "15672:15672"
+#      - "5672:5672"
+#    labels:
+#      NAME: "rabbitmq"
+#    volumes:
+#      - "./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
+      
   api:
     container_name: graphql
     build: .
@@ -9,44 +46,8 @@ services:
       SPRING_CLOUD_CONSUL_HOST: "consul"
     networks:
       - graphql_default
-
-  consul:
-    container_name: Consul
-    image: "progrium/consul:latest"
-    hostname: "consul"
-    ports:
-      - "8400:8400"
-      - "8500:8500"
-      - "8600:53"
-    command: "-server -bootstrap-expect 1 -ui-dir /ui"
-    networks:
-      - graphql_default
-    
-
-  postgres:
-    container_name: PostgresDB
-    image: "postgres:latest"
-    volumes:
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
-
-  rabbit:
-    image: "rabbitmq:3-management"
-    hostname: "rabbit"
-    container_name: Rabbit
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-      RABBITMQ_DEFAULT_VHOST: "/"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    labels:
-      NAME: "rabbitmq"
-    volumes:
-      - "./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
+    depends_on:
+      - 'consul'
 networks:
   graphql_default:
     external:

@@ -20,12 +20,6 @@ spring:
         WRITE_DATES_AS_TIMESTAMPS : false
   application:
     name: graphql 
-logging:
-  level:
-    root: fatal
-    com.corvesta: debug
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-  file: /tmp/config/logs/blueprint-service.log
 server:
     port: 8888
     
@@ -33,8 +27,9 @@ endpoints:
   health:
     enabled: true
 api:
-  omDbApi: 
-  movieDbApi: 
+  movieDbApi: xyz
+  omDbApi: xyz
+  
 swagger:
   api:
     base:

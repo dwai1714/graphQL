@@ -9,5 +9,4 @@ COPY target/*.jar app/graphql.jar
 
 # Define working directory.
 WORKDIR /app
-
 CMD [ "java","-jar","graphql.jar" ]

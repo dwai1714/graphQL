@@ -1,0 +1,5 @@
+{"api":{
+  "omDbApi": "PUT YOUR omDB API HERE",
+  "movieDbApi": "PUT YOUR movieDB API HERE"
+}
+}
